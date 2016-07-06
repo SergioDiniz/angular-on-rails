@@ -16,13 +16,6 @@
 #
 default: &default
   adapter: postgresql
-  password: 12345
-  port: 5432
-  host: localhost
-  username: postgres
-  password: 12345
-  pool: 5
-  timeout: 5000
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
@@ -30,13 +23,13 @@ default: &default
 
 development:
   <<: *default
-  database: angular-on-rails_dev
+  database: shine_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: angular-on-rails
+  #username: shine
 
   # The password associated with the postgres role (username).
   #password:
@@ -64,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: angular-on-rails_test
+  database: shine_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -85,8 +78,8 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-# production:
-#   <<: *default
-#   database: angular-on-rails_production
-#   username: angular-on-rails
-#   password: <%= ENV['ANGULAR-ON-RAILS_DATABASE_PASSWORD'] %>
+production:
+  <<: *default
+  database: shine_production
+  username: shine
+  password: <%= ENV['SHINE_DATABASE_PASSWORD'] %>
