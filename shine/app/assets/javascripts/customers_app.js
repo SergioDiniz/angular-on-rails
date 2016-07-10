@@ -2,10 +2,14 @@ var app = angular.module('customers', []);
 
 app.controller("CustomerSearchController", ["$scope", "$http", function($scope, $http){
   $scope.customers = [];
+
+  $scope.page = 0;
+
   $scope.search = function(searchTerm){
     $scope.searchedFor = searchTerm;
 
-    $http.get("/customers.json", {"params": {"keywords": searchTerm}})
+
+    $http.get("/customers.json", {"params": {"keywords": searchTerm, "page": $scope.page}})
          .then(function(response){
            $scope.customers = response.data;
          },
@@ -13,4 +17,18 @@ app.controller("CustomerSearchController", ["$scope", "$http", function($scope, 
            alert("There was a problem: " + response.status);
          });
   }
+
+  $scope.previousPage = function(){
+    if ($scope.page > 0){
+      $scope.page = $scope.page - 1;
+      $scope.search($scope.keywords);
+    }
+  }
+
+  $scope.nextPage = function(){
+    $scope.page = $scope.page + 1;
+    $scope.search($scope.keywords);
+  }
+
+  // end
 }]);
